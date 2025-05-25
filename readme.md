@@ -33,7 +33,7 @@ Untuk mencapai tujuan tersebut, dilakukan pendekatan berbasis pemrosesan teks da
 - Menggabungkan fitur teks dari kolom type, listed_in, dan description menjadi satu representasi konten.
 - Melakukan vektorisasi teks menggunakan TF-IDF Vectorizer untuk mengubah teks menjadi representasi numerik.
 - Mengukur kemiripan antar konten menggunakan cosine similarity.
-- Mengembangkan fungsi rekomendasi untuk mengembalikan 5 konten paling mirip berdasarkan judul yang diberikan pengguna.
+- Mengembangkan fungsi rekomendasi untuk mengembalikan 10 konten paling mirip berdasarkan judul yang diberikan pengguna.
 
 ## Data Understanding
 Dataset Netflix Movies and TV Shows merupakan dataset yang berasal dari kaggle, dengan link berikut : https://www.kaggle.com/datasets/shivamb/netflix-shows. Dataset ini memiliki data sebanyak 8.807 baris data serta 12 kolom dan terdapat kolom yang memiliki missing value di bagian director, cast, dan country. 
