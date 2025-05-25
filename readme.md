@@ -106,6 +106,7 @@ Karena sistem ini tidak menggunakan data interaksi pengguna (seperti klik atau r
 Evaluasi manual pada sistem rekomendasi dilakukan dengan menguji fungsi get_recommendations() menggunakan input judul "Narcos". Fungsi ini bekerja dengan mengecek keberadaan judul pada dataset, kemudian menghitung cosine similarity antara konten "Narcos" dengan seluruh konten lain. Setelah itu, sistem mengurutkan konten berdasarkan skor kemiripan tertinggi dan mengembalikan 10 konten teratas yang dianggap paling mirip. Pada sistem ini menampilkan data dengan kolom title, listed_in, type, description, dan similiarity dari konten narcos tersebut.
 - pengujian pada film narcos menghasilkan : 
     - Genre dan tema dari rekomendasi ("El Chapo", "Narcos: Mexico", "Bad Blood", "Cocaine Cowboys: The Kings of Miami", "Ganglands", dll)  memiliki kemiripan yang kuat dengan "Narcos", baik dari segi genre (Crime TV Shows, TV Action & Adventure), type (TV Show), maupun dari deskripsi.
+    ![Image](https://github.com/user-attachments/assets/2e92043c-ae12-4a1e-af8f-b900a365b371)
     - Hal ini menunjukkan bahwa sistem rekomendasi dapat menangkap konteks konten dengan baik.
 
 ### Hubungan dengan Business Understanding
