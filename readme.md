@@ -25,7 +25,7 @@ Dalam layanan streaming seperti Netflix, banyak pengguna kesulitan menemukan fil
 
 ### Goals
 
-Tujuan dari proyek ini adalah membangun sistem rekomendasi film dan acara TV berbasis content-based filtering. Sistem ini diharapkan mampu memberikan 5 rekomendasi konten yang relevan berdasarkan input berupa judul, dengan menggunakan fitur-fitur seperti genre, tipe konten, dan deskripsi. Sehingga, pengguna dapat menemukan konten yang sesuai dengan preferensi mereka secara lebih cepat dan efisien.
+Tujuan dari proyek ini adalah membangun sistem rekomendasi film dan acara TV berbasis content-based filtering. Sistem ini diharapkan mampu memberikan 10 rekomendasi konten yang relevan berdasarkan input berupa judul, dengan menggunakan fitur-fitur seperti genre, tipe konten, dan deskripsi. Sehingga, pengguna dapat menemukan konten yang sesuai dengan preferensi mereka secara lebih cepat dan efisien.
 
 
 ### Solution statements
@@ -82,7 +82,6 @@ Berikut penjelasan setiap fiturnya antara lain :
 
 
 ### Eksplorasi Data (EDA) & Visualisasi
-- release_year menunjukkan rentang tahun yang wajar, mulai dari 1925 hingga tahun modern.
 - Tipe data sebagian besar bertipe object/string.
 - Terdapat missing value terutama di kolom seperti director, cast, dan country.
 - Type distribusinya lumayan merata dibanding dengan fitur lainnya dan didominasi oleh Movie dibandingkan TV Show.
@@ -92,26 +91,33 @@ Berikut penjelasan setiap fiturnya antara lain :
 Dalam tahap ini, dilakukan beberapa proses untuk memastikan data siap digunakan dalam pembangunan sistem rekomendasi berbasis konten:
 - Handling Missing Value: Dilakukan penghapusan data yang memiliki missing value pada kolom type, description, dan listed_in. Ketiga kolom ini merupakan fitur utama yang digunakan untuk membentuk sistem rekomendasi konten, sehingga keberadaan nilai kosong dapat mengganggu hasil rekomendasi. 
 - Feature Engineering (Penggabungan Fitur): Kolom type, listed_in, dan description digabung menjadi satu kolom teks panjang menggunakan tanda pemisah spasi. Penggabungan ini bertujuan untuk menjadikan satu konten secara menyeluruh dalam satu vektor teks, yang kemudian akan digunakan sebagai input untuk teknik vektorisasi.
-- Text Vectorization (TF-IDF Vectorizer): Hasil penggabungan fitur teks kemudian diproses menggunakan TF-IDF Vectorizer untuk mengubah teks menjadi representasi numerik berbasis frekuensi dan pentingnya istilah dalam dokumen. Hasil vektorisasi ini digunakan untuk mengukur kemiripan antar konten.
+- Text Vectorization (TF-IDF Vectorizer): Hasil penggabungan fitur teks kemudian diproses menggunakan TF-IDF Vectorizer untuk mengubah teks menjadi representasi numerik berbasis frekuensi dan pentingnya istilah dalam dokumen. Hasil vektorisasi ini digunakan untuk mengukur kemiripan antar konten. 
 
 ## Modeling
 Dalam tahap pemodelan ini, digunakan pendekatan content-based filtering yang fokus pada kemiripan antar konten berdasarkan informasi deskriptif. Tahapan modeling dilakukan sebagai berikut:
 - Similarity Computation (Cosine Similarity): Setelah teks diubah menjadi vektor, dilakukan perhitungan kemiripan antar konten menggunakan metode cosine similarity. Kemiripan ini digunakan untuk mengidentifikasi dan mengurutkan rekomendasi konten yang paling relevan terhadap input judul yang diberikan oleh pengguna. hasil mendekati 1 atau 1 merupakan hasil yang sangat mirip dengan inputannya, sedangkan mendekati 0 atau 0 merupakan hasil yang berbeda dengan inputannya
-
-- Rekomendasi Konten : Ketika pengguna memberikan input berupa judul film atau acara TV, sistem akan mencocokkan judul tersebut dengan data yang ada, kemudian menghitung cosine similarity antara konten input dan seluruh konten lainnya. Selanjutnya, sistem akan mengembalikan 5 rekomendasi konten teratas dengan nilai kemiripan tertinggi, yang dianggap paling relevan dengan konten input.
-
+- Rekomendasi Konten : Ketika pengguna memberikan input berupa judul film atau acara TV, sistem akan mencocokkan judul tersebut dengan data yang ada, kemudian menghitung cosine similarity antara konten input dan seluruh konten lainnya. Selanjutnya, sistem akan mengembalikan 10 rekomendasi konten teratas dengan nilai kemiripan tertinggi, yang dianggap paling relevan dengan konten input.
 
 ## Evaluation
-Evaluasi sistem rekomendasi dilakukan dengan menguji fungsi get_recommendations() menggunakan input judul "Narcos". Fungsi ini bekerja dengan mengecek keberadaan judul pada dataset, kemudian menghitung cosine similarity antara konten "Narcos" dengan seluruh konten lain. Setelah itu, sistem mengurutkan konten berdasarkan skor kemiripan tertinggi dan mengembalikan 5 konten teratas yang dianggap paling mirip.
+### Metrik Evaluasi
+Karena sistem ini tidak menggunakan data interaksi pengguna (seperti klik atau rating), maka dilakukan evaluasi manual berdasarkan konten yang relevan. Pendekatan ini dilakukan dengan menilai apakah hasil rekomendasi relevan dengan input berdasarkan genre(listed_in), tipe(type), dan deskripsinya(description).
 
-Output dari fungsi ini adalah daftar judul film atau acara TV lain yang memiliki kesamaan konten dengan "Narcos" berdasarkan kombinasi fitur type, listed_in, dan description.
+### Evaluasi Manual
+Evaluasi manual pada sistem rekomendasi dilakukan dengan menguji fungsi get_recommendations() menggunakan input judul "Narcos". Fungsi ini bekerja dengan mengecek keberadaan judul pada dataset, kemudian menghitung cosine similarity antara konten "Narcos" dengan seluruh konten lain. Setelah itu, sistem mengurutkan konten berdasarkan skor kemiripan tertinggi dan mengembalikan 10 konten teratas yang dianggap paling mirip. Pada sistem ini menampilkan data dengan kolom title, listed_in, type, description, dan similiarity dari konten narcos tersebut.
+- pengujian pada film narcos menghasilkan : 
+    - Genre dan tema dari rekomendasi ("El Chapo", "Narcos: Mexico", "Bad Blood", "Cocaine Cowboys: The Kings of Miami", "Ganglands", dll)  memiliki kemiripan yang kuat dengan "Narcos", baik dari segi genre (Crime TV Shows, TV Action & Adventure), type (TV Show), maupun dari deskripsi.
+    - Hal ini menunjukkan bahwa sistem rekomendasi dapat menangkap konteks konten dengan baik.
 
-### Metode Evaluasi
-Evaluasi dilakukan secara manual dengan pendekatan berikut:
-
-#### Validasi Manual
-Hasil rekomendasi dilihat secara manual untuk melihat apakah konten yang direkomendasikan memiliki relevansi dengan judul input. Misalnya, apakah konten tersebut juga memiliki genre kriminal, drama, atau memiliki deskripsi yang sama. Untuk judul film "Narcos" memiliki kedekatan yang sama berdasarkan genre filmnya dengan film Miss Dynamite, Narcos: Mexico, El Cartel 2, El Chapo, Ganglands.
+### Hubungan dengan Business Understanding
+Sistem yang dibangun ini dapat menjawab beberapa pertanyaan terkait dengan business understanding antara lain : 
+- Apakah sudah menjawab setiap problem statment?
+    - Ya, sistem rekomendasi yang dibangun telah menjawab masalah utama yang diangkat. Dengan menggunakan pendekatan content-based filtering, sistem mampu memberikan rekomendasi berdasarkan kesamaan deskripsi konten, genre, dan tipe tanpa memerlukan data historis pengguna seperti riwayat tontonan atau rating dari pengguna. Sistem mengambil dataset untuk list film di netflix dan menggunakan cosine similiarity untuk menghitung kedekatan konten satu dengan yang serupa tanpa perlu melihat riwayat tontonan. 
+- Apakah berhasil mencapai setiap goals yang diharapkan?
+    - Ya, tujuan dari proyek ini tercapai antara lain Sistem berhasil memberikan rekomendasi konten berbasis kemiripan konten berdasarkan genre, deskripsi, tipe. Selain itu, sistem juga dapat memberikan 10 rekomendasi film yang relevan dengan inputan film sebelumnya sehingga konten serupa secara cepat, efisien, dan tanpa data pengguna sebelumnya.
+- Apakah setiap solution statement yang kamu rencanakan berdampak? Jelaskan!
+    - Ya. Setiap solusi yang telah direncanakan memiliki dampak terhadap keberhasilan sistem. Berawal dari penggabungan fitur teks (type, listed_in, description) dilanjutkan dengan TF-IDF Vectorization lalu perhitungan Cosine Similarity dan yang terakhir membuat fungsi rekomendasi. Semua solusi tersebut berkontribusi dalam membangun sistem yang relevan dengan masalah dan tujuannya dan dengan sistem ini, pengguna lebih mudah menemukan konten serupa. 
 
 
 ## Kesimpulan
-Sistem rekomendasi berbasis konten (content-based filtering) berhasil dibangun dengan memanfaatkan teknik TF-IDF Vectorizer untuk representasi fitur teks dan cosine similarity untuk menghitung kemiripan antar konten. Sistem ini mampu memberikan rekomendasi film atau acara TV yang relevan berdasarkan genre, jenis konten, dan deskripsi, tanpa memerlukan data interaksi pengguna seperti rating atau riwayat tontonan.
+Sistem rekomendasi berbasis konten (content-based filtering) berhasil dibangun dengan memanfaatkan teknik TF-IDF Vectorizer untuk representasi fitur teks dan cosine similarity untuk menghitung kemiripan antar konten. Meskipun evaluasi dilakukan secara manual, hasil rekomendasi menunjukkan relevansi yang tbagus dengan konten input. Sistem ini mampu memberikan rekomendasi film atau acara TV yang relevan berdasarkan genre, jenis konten, dan deskripsi, tanpa memerlukan data interaksi pengguna seperti rating atau riwayat tontonan. 
+
