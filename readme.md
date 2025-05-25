@@ -85,7 +85,7 @@ Berikut penjelasan setiap fiturnya antara lain :
 - Tipe data sebagian besar bertipe object/string.
 - Terdapat missing value terutama di kolom seperti director, cast, dan country.
 - Type distribusinya lumayan merata dibanding dengan fitur lainnya dan didominasi oleh Movie dibandingkan TV Show.
-- film yang ditambahkan kebanyakan adalah 2015 keatas.
+- film yang ditambahkan kebanyakan adalah 2000 keatas.
 
 ## Data Preparation
 Dalam tahap ini, dilakukan beberapa proses untuk memastikan data siap digunakan dalam pembangunan sistem rekomendasi berbasis konten:
