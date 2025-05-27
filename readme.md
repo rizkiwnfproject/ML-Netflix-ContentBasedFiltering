@@ -83,9 +83,11 @@ Berikut penjelasan setiap fiturnya antara lain :
 
 ### Eksplorasi Data (EDA) & Visualisasi
 - Tipe data sebagian besar bertipe object/string.
-- Terdapat missing value terutama di kolom seperti director, cast, dan country.
-- Type distribusinya lumayan merata dibanding dengan fitur lainnya dan didominasi oleh Movie dibandingkan TV Show.
 - film yang ditambahkan kebanyakan adalah 2000 keatas.
+- Type distribusinya lumayan merata dibanding dengan fitur lainnya dan didominasi oleh Movie dibandingkan TV Show.
+- Terdapat missing value terutama di kolom seperti director, cast, country, date_added, rating, dan duration. Namun missing value ini tidak akan diproses lebih lanjut dikarenakan kolom yang digunakan hanya kolom ype, description, dan listed_in saja.
+- Tidak terdapat data duplikat pada semua kolom.
+- Terdapat outlier dikolom release_year sebanyak 719 outliers. Namun outlier ini tidak akan diproses lebih lanjut dikarenakan outlier didalam film menunjukkan bahwa nilai-nilai tersebut valid, karena film lama dari tahun 1970-an atau 1990-an memang ada dan bukan merupakan kesalahan data.
 
 ## Data Preparation
 Dalam tahap ini, dilakukan beberapa proses untuk memastikan data siap digunakan dalam pembangunan sistem rekomendasi berbasis konten:
