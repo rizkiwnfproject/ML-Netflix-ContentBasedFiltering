@@ -104,7 +104,7 @@ Dalam tahap pemodelan ini, digunakan pendekatan content-based filtering yang fok
 ### Metrik Evaluasi
 Sistem ini menggunakan metriks evaluasi secara manual berdasarkan konten yang relevan. Pendekatan ini dilakukan dengan menilai apakah hasil rekomendasi relevan dengan input berdasarkan genre(listed_in), tipe(type), dan deskripsinya(description). Dan juga menggunakan metriks evaluasi Precision@10 dan Recall@10, untuk memberikan penialan yang lebih kuantitatif dan dapat dimengerti.
 
-##### Evaluasi Manual
+#### Evaluasi Manual
 Evaluasi manual pada sistem rekomendasi dilakukan dengan menguji fungsi get_recommendations() menggunakan input judul "Narcos". Fungsi ini bekerja dengan mengecek keberadaan judul pada dataset, kemudian menghitung cosine similarity antara konten "Narcos" dengan seluruh konten lain. Setelah itu, sistem mengurutkan konten berdasarkan skor kemiripan tertinggi dan mengembalikan 10 konten teratas yang dianggap paling mirip. Pada sistem ini menampilkan data dengan kolom title, listed_in, type, description, dan similiarity dari konten narcos tersebut.
 - pengujian pada film narcos menghasilkan : 
     - Genre dan tema dari rekomendasi ("El Chapo", "Narcos: Mexico", "Bad Blood", "Cocaine Cowboys: The Kings of Miami", "Ganglands", dll)  memiliki kemiripan yang kuat dengan "Narcos", baik dari segi genre (Crime TV Shows, TV Action & Adventure), type (TV Show), maupun dari deskripsi.
