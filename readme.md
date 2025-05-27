@@ -104,14 +104,14 @@ Dalam tahap pemodelan ini, digunakan pendekatan content-based filtering yang fok
 ### Metrik Evaluasi
 Sistem ini menggunakan metriks evaluasi secara manual berdasarkan konten yang relevan. Pendekatan ini dilakukan dengan menilai apakah hasil rekomendasi relevan dengan input berdasarkan genre(listed_in), tipe(type), dan deskripsinya(description). Dan juga menggunakan metriks evaluasi Precision@10 dan Recall@10, untuk memberikan penialan yang lebih kuantitatif dan dapat dimengerti.
 
-### Evaluasi Manual
+##### Evaluasi Manual
 Evaluasi manual pada sistem rekomendasi dilakukan dengan menguji fungsi get_recommendations() menggunakan input judul "Narcos". Fungsi ini bekerja dengan mengecek keberadaan judul pada dataset, kemudian menghitung cosine similarity antara konten "Narcos" dengan seluruh konten lain. Setelah itu, sistem mengurutkan konten berdasarkan skor kemiripan tertinggi dan mengembalikan 10 konten teratas yang dianggap paling mirip. Pada sistem ini menampilkan data dengan kolom title, listed_in, type, description, dan similiarity dari konten narcos tersebut.
 - pengujian pada film narcos menghasilkan : 
     - Genre dan tema dari rekomendasi ("El Chapo", "Narcos: Mexico", "Bad Blood", "Cocaine Cowboys: The Kings of Miami", "Ganglands", dll)  memiliki kemiripan yang kuat dengan "Narcos", baik dari segi genre (Crime TV Shows, TV Action & Adventure), type (TV Show), maupun dari deskripsi.
     ![Image](https://github.com/user-attachments/assets/2e92043c-ae12-4a1e-af8f-b900a365b371)
     - Hal ini menunjukkan bahwa sistem rekomendasi dapat menangkap konteks konten dengan baik.
 
-### Evaluasi Kuantitatif: Precision@10 dan Recall@10
+#### Evaluasi Kuantitatif: Precision@10 dan Recall@10
 Untuk memberikan penilaian yang lebih kuat terhadap performa sistem rekomendasi, dilakukan evaluasi menggunakan metrik kuantitatif seperti Precision@10 dan Recall@10. Penilaian dilakukan dengan memilih judul film dilanjutkan dengan mengambil 10 rekomendasi film teratas untuk masing-masing judul menggunakan sistem get_recommendation, lalu dihitung berapa rekomendasi film yang sama menurut genre, deskripsi, dan tipe tayangan. 
 ![Image](https://github.com/user-attachments/assets/38163465-c7d1-4033-a49a-e5c61a31097a)
 
