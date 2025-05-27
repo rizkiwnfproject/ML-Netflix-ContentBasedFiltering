@@ -89,7 +89,7 @@ Berikut penjelasan setiap fiturnya antara lain :
 
 ## Data Preparation
 Dalam tahap ini, dilakukan beberapa proses untuk memastikan data siap digunakan dalam pembangunan sistem rekomendasi berbasis konten:
-- Handling Missing Value: Dilakukan penghapusan data yang memiliki missing value pada kolom type, description, dan listed_in. Ketiga kolom ini merupakan fitur utama yang digunakan untuk membentuk sistem rekomendasi konten, sehingga keberadaan nilai kosong dapat mengganggu hasil rekomendasi. 
+- Handling Missing Value: Dilakukan penghapusan data yang memiliki missing value pada kolom type, description, dan listed_in. Ketiga kolom ini merupakan fitur utama yang digunakan untuk membentuk sistem rekomendasi konten, sehingga keberadaan nilai kosong dapat mengganggu hasil rekomendasi. Hasil penghapusan pada kolom type, description, dan listed in adalah 0 baris data dikarenakan kolom-kolom tersebut tidak memiliki missing value. Namun terdapat missing value di kolom lain seperti kolom director, cast, country, date_added, rating, dan duration. Dikarenakan yang digunakan hanya kolom  type, description, dan listed_in maka dari itu saya tidak melakukan handling missing value pada kolom director, cast, country, date_added, rating, dan duration.
 - Feature Engineering (Penggabungan Fitur): Kolom type, listed_in, dan description digabung menjadi satu kolom teks panjang menggunakan tanda pemisah spasi. Penggabungan ini bertujuan untuk menjadikan satu konten secara menyeluruh dalam satu vektor teks, yang kemudian akan digunakan sebagai input untuk teknik vektorisasi.
 - Text Vectorization (TF-IDF Vectorizer): Hasil penggabungan fitur teks kemudian diproses menggunakan TF-IDF Vectorizer untuk mengubah teks menjadi representasi numerik berbasis frekuensi dan pentingnya istilah dalam dokumen. Hasil vektorisasi ini digunakan untuk mengukur kemiripan antar konten. 
 
@@ -109,6 +109,16 @@ Evaluasi manual pada sistem rekomendasi dilakukan dengan menguji fungsi get_reco
     ![Image](https://github.com/user-attachments/assets/2e92043c-ae12-4a1e-af8f-b900a365b371)
     - Hal ini menunjukkan bahwa sistem rekomendasi dapat menangkap konteks konten dengan baik.
 
+### Evaluasi Kuantitatif: Precision@10 dan Recall@10
+Untuk memberikan penilaian yang lebih kuat terhadap performa sistem rekomendasi, dilakukan evaluasi menggunakan metrik kuantitatif seperti Precision@10 dan Recall@10. Penilaian dilakukan dengan memilih judul film dilanjutkan dengan mengambil 10 rekomendasi film teratas untuk masing-masing judul menggunakan sistem get_recommendation, lalu dihitung berapa rekomendasi film yang sama menurut genre, deskripsi, dan tipe tayangan. 
+![Image](https://github.com/user-attachments/assets/38163465-c7d1-4033-a49a-e5c61a31097a)
+Gambar diatas merupakan hasil evaluasi menggunakan Precision@10 dan Recall@10. Hasil evaluasi ini menunjukkan performa sistem dalam menilai kecocokan antara judul dan genre yang dihasilkan, dengan menggunakan metrik Precision@10 dan Recall@10. 
+- Precision@10 bernilai 1.0 untuk semua judul, artinya dari 10 kata kunci teratas yang diprediksi, semua benar relevan atau tepat sesuai judul tersebut. 
+- Nilai Recall@10 berbeda-beda: 
+    - untuk "Narcos" dan "The Crown" sebesar 0.67, yang berarti sistem menangkap sekitar 67% dari seluruh kata kunci relevan yang seharusnya ditemukan
+    - untuk "Jaguar" hanya 0.33, menunjukkan bahwa hanya 33% dari kata kunci relevan yang terdeteksi. 
+- Maka dari itu sistem ini tepat dalam prediksi film teratas, tapi masih ada beberapa yang belum tercover. 
+
 ### Hubungan dengan Business Understanding
 Sistem yang dibangun ini dapat menjawab beberapa pertanyaan terkait dengan business understanding antara lain : 
 - Apakah sudah menjawab setiap problem statment?
@@ -120,5 +130,5 @@ Sistem yang dibangun ini dapat menjawab beberapa pertanyaan terkait dengan busin
 
 
 ## Kesimpulan
-Sistem rekomendasi berbasis konten (content-based filtering) berhasil dibangun dengan memanfaatkan teknik TF-IDF Vectorizer untuk representasi fitur teks dan cosine similarity untuk menghitung kemiripan antar konten. Meskipun evaluasi dilakukan secara manual, hasil rekomendasi menunjukkan relevansi yang tbagus dengan konten input. Sistem ini mampu memberikan rekomendasi film atau acara TV yang relevan berdasarkan genre, jenis konten, dan deskripsi, tanpa memerlukan data interaksi pengguna seperti rating atau riwayat tontonan. 
+Sistem rekomendasi berbasis konten (content-based filtering) berhasil dibangun dengan memanfaatkan teknik TF-IDF Vectorizer untuk representasi fitur teks dan cosine similarity untuk menghitung kemiripan antar konten. Evaluasi dilakukan secara manual dan juga menggunakan metriks Precision@10 dan Recall@10. Pada evaluasi manual hasil rekomendasi menunjukkan relevansi yang bagus dengan konten input dan pada evaluasi menggunakan matriks menunjukkan bahwa sistem rekomendasi dapat memberikan hasil rekomendasi film secara tepat, meskipun beberapa belum tercover sepenuhnya. Sistem ini mampu memberikan rekomendasi film atau acara TV yang relevan berdasarkan genre, jenis konten, dan deskripsi, tanpa memerlukan data interaksi pengguna seperti rating atau riwayat tontonan. 
 
