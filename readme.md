@@ -102,7 +102,7 @@ Dalam tahap pemodelan ini, digunakan pendekatan content-based filtering yang fok
 
 ## Evaluation
 ### Metrik Evaluasi
-Karena sistem ini tidak menggunakan data interaksi pengguna (seperti klik atau rating), maka dilakukan evaluasi manual berdasarkan konten yang relevan. Pendekatan ini dilakukan dengan menilai apakah hasil rekomendasi relevan dengan input berdasarkan genre(listed_in), tipe(type), dan deskripsinya(description).
+Sistem ini menggunakan metriks evaluasi secara manual berdasarkan konten yang relevan. Pendekatan ini dilakukan dengan menilai apakah hasil rekomendasi relevan dengan input berdasarkan genre(listed_in), tipe(type), dan deskripsinya(description). Dan juga menggunakan metriks evaluasi Precision@10 dan Recall@10, untuk memberikan penialan yang lebih kuantitatif dan dapat dimengerti.
 
 ### Evaluasi Manual
 Evaluasi manual pada sistem rekomendasi dilakukan dengan menguji fungsi get_recommendations() menggunakan input judul "Narcos". Fungsi ini bekerja dengan mengecek keberadaan judul pada dataset, kemudian menghitung cosine similarity antara konten "Narcos" dengan seluruh konten lain. Setelah itu, sistem mengurutkan konten berdasarkan skor kemiripan tertinggi dan mengembalikan 10 konten teratas yang dianggap paling mirip. Pada sistem ini menampilkan data dengan kolom title, listed_in, type, description, dan similiarity dari konten narcos tersebut.
@@ -114,6 +114,7 @@ Evaluasi manual pada sistem rekomendasi dilakukan dengan menguji fungsi get_reco
 ### Evaluasi Kuantitatif: Precision@10 dan Recall@10
 Untuk memberikan penilaian yang lebih kuat terhadap performa sistem rekomendasi, dilakukan evaluasi menggunakan metrik kuantitatif seperti Precision@10 dan Recall@10. Penilaian dilakukan dengan memilih judul film dilanjutkan dengan mengambil 10 rekomendasi film teratas untuk masing-masing judul menggunakan sistem get_recommendation, lalu dihitung berapa rekomendasi film yang sama menurut genre, deskripsi, dan tipe tayangan. 
 ![Image](https://github.com/user-attachments/assets/38163465-c7d1-4033-a49a-e5c61a31097a)
+
 Gambar diatas merupakan hasil evaluasi menggunakan Precision@10 dan Recall@10. Hasil evaluasi ini menunjukkan performa sistem dalam menilai kecocokan antara judul dan genre yang dihasilkan, dengan menggunakan metrik Precision@10 dan Recall@10. 
 - Precision@10 bernilai 1.0 untuk semua judul, artinya dari 10 kata kunci teratas yang diprediksi, semua benar relevan atau tepat sesuai judul tersebut. 
 - Nilai Recall@10 berbeda-beda: 
